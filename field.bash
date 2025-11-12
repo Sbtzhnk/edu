@@ -5,7 +5,7 @@ wordMask=""
 isWordCompleted=0
 playerName=""
 tryCount=0
-
+#check commit
 function ToLower {
     echo "${1,,}"
 }
