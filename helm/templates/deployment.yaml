@@ -1,21 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: go_hello
+  name: {{ include "helloworld.fullname" . }}
   labels:
-    app: go_hello
+    {{- include "helloworld.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .values.replicaCount }}
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: go_hello
+      {{- include "helloworld.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        app: go_hello
+        {{- include "helloworld.selectorLabels" . | nindent 8 }}
     spec:
       containers:
-      - name: go_hello
-        image: "git.gocommunity.ru/go-hello:{{ .Chart.AppVersion }}"
-        ports:
-        - containerPort: 8080
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
