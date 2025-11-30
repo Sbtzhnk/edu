@@ -24,7 +24,7 @@ func (s *Stack) Push(val int) {
 func main() {
 	mass := []int{1, 2, 3}
 	st := Stack{mass}
-	fmt.Println(st.Pop()):~/edu/lab2911/singlton
+	fmt.Println(st.Pop())
 	fmt.Println(mass)
 	fmt.Println(st.Pop())
 	st.Push(5)
